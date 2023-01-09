@@ -22,13 +22,11 @@ as it seems like free projects do get throttle somewhat.
 
 > Why does the feed only contain a few items?
 
-This is due to API limitation.
-
-This code use the same API that MangaDex uses to display [Latest Updates][Latest Updates] page.
-This [`/chapter` endpoint][endpoint] only returns a maximum of 100 chapters at a time.
+This is due to API limitation
+as the [`/chapter` endpoint][endpoint] only returns a maximum of 100 chapters at a time.
 It also doesn't support filtering by tag,
 so the tag filtering is done locally
-on the latest 100 chapters we receive from MangaDex.
+on the latest 300 chapters we receive from MangaDex.
 
 [Latest Updates]: https://mangadex.org/titles/latest
 [endpoint]: https://api.mangadex.org/docs/redoc.html#tag/Chapter/operation/get-chapter

@@ -16,20 +16,24 @@ CHAPTER_QUERY_STRING = %w[
   limit=100
   order[readableAt]=desc
   translatedLanguage[]=en
+  offset=%s
 ].join("&")
 
 manga_ids = []
 authors = {}
 artists = {}
 cover_arts = {}
+chapters = []
 
-# Fetch a list of chapters and filter out ones without GL tag
-chapters_url = "#{BASE_CHAPTER_URL}?#{CHAPTER_QUERY_STRING}"
-chapters = JSON.parse(URI.parse(chapters_url).open.read)["data"].select do |chapter|
-  manga = chapter["relationships"].detect { |relationship| relationship["type"] == "manga" }
+[0, 100, 200].each do |offset|
+  # Fetch a list of chapters and filter out ones without GL tag
+  chapters_url = format("#{BASE_CHAPTER_URL}?#{CHAPTER_QUERY_STRING}", offset)
+  chapters += JSON.parse(URI.parse(chapters_url).open.read)["data"].select do |chapter|
+    manga = chapter["relationships"].detect { |relationship| relationship["type"] == "manga" }
 
-  if manga["attributes"]["tags"].detect { |tag| tag["id"] == YURI_TAG_ID }
-    manga_ids << manga["id"]
+    if manga["attributes"]["tags"].detect { |tag| tag["id"] == YURI_TAG_ID }
+      manga_ids << manga["id"]
+    end
   end
 end
 
