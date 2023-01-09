@@ -7,7 +7,7 @@ You should be able to subscribe to the feed
 by putting the URL below into your RSS reader of choice:
 
 ```
-https://kagari-mimi.github.io/u
+https://kagari-mimi.github.io/u/
 ```
 
 ## FAQ
