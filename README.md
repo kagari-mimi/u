@@ -1,4 +1,4 @@
-# karari-mimi/u
+# /u/
 
 This repository contains a Ruby script and a GitHub Action
 which will generate a RSS feed from MangaDex `/chapter` API endpoint.
