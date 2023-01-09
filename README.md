@@ -20,6 +20,19 @@ as it seems like free projects do get throttle somewhat.
 
 [cron]: https://github.com/kagari-mimi/u/blob/95fdc7e5d203e80cf6a506328f301e49a8423fe6/.github/workflows/build-atom-feed.yml#L8
 
+> Why does the feed only contain a few items?
+
+This is due to API limitation.
+
+This code use the same API that MangaDex uses to display [Latest Updates][Latest Updates] page.
+This [`/chapter` endpoint][endpoint] only returns a maximum of 100 chapters at a time.
+It also doesn't support filtering by tag,
+so the tag filtering is done locally
+on the latest 100 chapters we receive from MangaDex.
+
+[Latest Updates]: https://mangadex.org/titles/latest
+[endpoint]: https://api.mangadex.org/docs/redoc.html#tag/Chapter/operation/get-chapter
+
 > Why `/u/`?
 
 Because Y/u/ri.
