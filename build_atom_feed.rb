@@ -74,8 +74,8 @@ end
 # Build actual feed
 atom = RSS::Maker.make("atom") do |maker| # rubocop:disable Metrics/BlockLength
   maker.channel.authors.new_author do |author|
-    author.name = "kagari-mimi/u - MangaDex Girls' Love Feed Generator"
-    author.uri = "https://github.com/kagari-mimi/u"
+    author.name = "Latest chapters from MangaDex Girls' Love tag"
+    author.uri = "https://github.com/kagari-mimi/u/"
   end
 
   maker.channel.id = "https://mangadex.org/tag/a3c67850-4684-404e-9b7f-c69850ee5da6/girls-love"
