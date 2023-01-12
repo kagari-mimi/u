@@ -85,7 +85,9 @@ atom = RSS::Maker.make("atom") do |maker| # rubocop:disable Metrics/BlockLength
   chapters.each do |chapter| # rubocop:disable Metrics/BlockLength
     manga = chapter["relationships"].detect { |relationship| relationship["type"] == "manga" }
 
-    title = manga["attributes"]["title"]["en"]
+    title = manga["attributes"]["title"]["en"] ||
+            manga["attributes"]["title"]["ja"] ||
+            manga["attributes"]["title"].first
     title << " Vol.#{chapter['attributes']['volume']}" if chapter["attributes"]["volume"]
     title << " Ch.#{chapter['attributes']['chapter']}" if chapter["attributes"]["chapter"]
     title << " #{chapter['attributes']['title']}" if chapter["attributes"]["title"]
