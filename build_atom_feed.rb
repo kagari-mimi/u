@@ -121,7 +121,7 @@ atom = RSS::Maker.make("atom") do |maker| # rubocop:disable Metrics/BlockLength
       item.link = item.id
       item.updated = chapter["attributes"]["updatedAt"]
 
-      if authors[manga["id"]].map { _1["id"] } == artists[manga["id"]].map { _1["id"] }
+      if authors[manga["id"]]&.map { _1["id"] } == artists[manga["id"]]&.map { _1["id"] }
         authors[manga["id"]].each do |author|
           item.authors.new_author do |author_item|
             author_item.name = CGI.escapeHTML(author["attributes"]["name"])
@@ -129,14 +129,14 @@ atom = RSS::Maker.make("atom") do |maker| # rubocop:disable Metrics/BlockLength
           end
         end
       else
-        authors[manga["id"]].each do |author|
+        authors[manga["id"]]&.each do |author|
           item.authors.new_author do |author_item|
             author_item.name = "#{CGI.escapeHTML(author['attributes']['name'])} (Author)"
             author_item.uri = "https://mangadex.org/author/#{author['id']}"
           end
         end
 
-        artists[manga["id"]].each do |artist|
+        artists[manga["id"]]&.each do |artist|
           item.authors.new_author do |artist_item|
             artist_item.name = "#{CGI.escapeHTML(artist['attributes']['name'])} (Artist)"
             artist_item.uri = "https://mangadex.org/author/#{artist['id']}"
