@@ -71,8 +71,11 @@ end
 # pp artists
 # pp cover_arts
 
+# Bail out if there's no chapters
+exit if chapters.empty?
+
 # Build actual feed
-atom = RSS::Maker.make("atom") do |maker| # rubocop:disable Metrics/BlockLength
+atom = RSS::Maker.make("atom") do |maker|
   maker.channel.authors.new_author do |author|
     author.name = "Latest chapters from MangaDex Girls' Love tag"
     author.uri = "https://github.com/kagari-mimi/u/"
@@ -82,7 +85,7 @@ atom = RSS::Maker.make("atom") do |maker| # rubocop:disable Metrics/BlockLength
   maker.channel.title = "Latest Girls' Love Chapters from MangaDex"
   maker.channel.updated = chapters.first["attributes"]["updatedAt"]
 
-  chapters.each do |chapter| # rubocop:disable Metrics/BlockLength
+  chapters.each do |chapter|
     manga = chapter["relationships"].detect { |relationship| relationship["type"] == "manga" }
 
     title = manga["attributes"]["title"]["en"] ||
@@ -115,7 +118,7 @@ atom = RSS::Maker.make("atom") do |maker| # rubocop:disable Metrics/BlockLength
 
     tags = tags.join(", ")
 
-    maker.items.new_item do |item| # rubocop:disable Metrics/BlockLength
+    maker.items.new_item do |item|
       item.id = "https://mangadex.org/chapter/#{chapter['id']}"
       item.title = title
       item.link = item.id
