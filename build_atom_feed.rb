@@ -88,7 +88,8 @@ atom = RSS::Maker.make("atom") do |maker|
   chapters.each do |chapter|
     manga = chapter["relationships"].detect { |relationship| relationship["type"] == "manga" }
 
-    title = manga["attributes"]["title"].first[1]
+    manga_title = manga["attributes"]["title"].first[1]
+    title = manga_title.dup
     title << " Vol.#{chapter['attributes']['volume']}" if chapter["attributes"]["volume"]
     title << " Ch.#{chapter['attributes']['chapter']}" if chapter["attributes"]["chapter"]
     title << " #{chapter['attributes']['title']}" if chapter["attributes"]["title"]
@@ -145,13 +146,17 @@ atom = RSS::Maker.make("atom") do |maker|
         end
       end
 
-      item.content.content = <<~HTML
+      item.content.content = <<~HTML.strip
         <p>
           <img src="#{cover_art}"/>
         </p>
         <p>
+          <strong>Title:</strong>
+          <a href="https://mangadex.org/title/#{manga['id']}">#{manga_title}</a>
+        </p>
+        <p>
           <strong>Scanlation Group:</strong>
-          #{scanlation_groups}
+          #{scanlation_groups || '<em>No Group</em>'}
         </p>
         <p>
           <strong>Tags:</strong>
